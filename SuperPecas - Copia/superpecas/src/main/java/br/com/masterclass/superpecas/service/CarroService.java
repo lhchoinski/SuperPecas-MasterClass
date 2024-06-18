@@ -2,9 +2,11 @@ package br.com.masterclass.superpecas.service;
 
 import br.com.masterclass.superpecas.Components.Pageable.CPageable;
 import br.com.masterclass.superpecas.DTO.CarroDTO;
+import br.com.masterclass.superpecas.DTO.PecaDTO;
 import br.com.masterclass.superpecas.Exceptions.CarroComPecasAssociadasException;
 import br.com.masterclass.superpecas.Exceptions.ResourceNotFoundException;
 import br.com.masterclass.superpecas.model.Carro;
+import br.com.masterclass.superpecas.model.Peca;
 import br.com.masterclass.superpecas.repository.ICarroRepository;
 import br.com.masterclass.superpecas.repository.IPecaRepository;
 import org.modelmapper.ModelMapper;
@@ -15,7 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CarroService {
@@ -74,5 +78,12 @@ public class CarroService {
         }
 
         carroRepository.deleteById(id);
+    }
+
+    public List<CarroDTO> findByNameContaining(String nome) {
+        List<Carro> carros = carroRepository.findByNameContaining(nome);
+        return carros.stream()
+                .map(carro -> modelMapper.map(carro, CarroDTO.class))
+                .collect(Collectors.toList());
     }
 }

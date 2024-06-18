@@ -9,4 +9,7 @@ import java.util.List;
 
 public interface ICarroRepository extends JpaRepository<Carro, Integer> {
 
+    @Query("SELECT c FROM Carro c WHERE c.nome LIKE %:nome%")
+    List<Carro> findByNameContaining(@Param("nome") String nome);
+
 }

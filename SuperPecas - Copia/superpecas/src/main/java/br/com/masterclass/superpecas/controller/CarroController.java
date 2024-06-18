@@ -2,9 +2,11 @@ package br.com.masterclass.superpecas.controller;
 
 import br.com.masterclass.superpecas.Components.Pageable.CPageable;
 import br.com.masterclass.superpecas.DTO.CarroDTO;
+import br.com.masterclass.superpecas.DTO.PecaDTO;
 import br.com.masterclass.superpecas.service.CarroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,5 +46,11 @@ public class CarroController {
     public ResponseEntity<Void> deleteCarro(@PathVariable Integer id) {
         carroService.delete(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/nome")
+    public ResponseEntity<List<CarroDTO>> findByNameContaining(@RequestParam String nome) {
+        List<CarroDTO> carros = carroService.findByNameContaining(nome);
+        return new ResponseEntity<>(carros, HttpStatus.OK);
     }
 }

@@ -12,7 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PecaService {
@@ -71,5 +73,12 @@ public class PecaService {
         }
 
         pecaRepository.deleteById(id);
+    }
+
+    public List<PecaDTO> findByNameContaining(String nome) {
+        List<Peca> pecas = pecaRepository.findByNameContaining(nome);
+        return pecas.stream()
+                .map(peca -> modelMapper.map(peca, PecaDTO.class))
+                .collect(Collectors.toList());
     }
 }
