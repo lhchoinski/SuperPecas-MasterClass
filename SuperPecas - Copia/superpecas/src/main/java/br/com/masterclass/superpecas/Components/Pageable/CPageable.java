@@ -5,11 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter

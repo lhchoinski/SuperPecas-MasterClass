@@ -2,8 +2,9 @@ package br.com.masterclass.superpecas.service;
 
 import br.com.masterclass.superpecas.Components.Pageable.CPageable;
 import br.com.masterclass.superpecas.DTO.PecaDTO;
-import br.com.masterclass.superpecas.Exceptions.ResourceNotFoundException;
+import br.com.masterclass.superpecas.exceptions.ResourceNotFoundException;
 import br.com.masterclass.superpecas.model.Peca;
+import br.com.masterclass.superpecas.projections.PecaProjection;
 import br.com.masterclass.superpecas.repository.ICarroRepository;
 import br.com.masterclass.superpecas.repository.IPecaRepository;
 import org.modelmapper.ModelMapper;
@@ -36,8 +37,7 @@ public class PecaService {
 
     public PecaDTO findById(Integer id) {
         Optional<Peca> peca = pecaRepository.findById(id);
-        return peca.map(value -> modelMapper.map(value, PecaDTO.class))
-                .orElseThrow(() -> new ResourceNotFoundException("Peça não encontrada com ID: " + id));
+        return peca.map(value -> modelMapper.map(value, PecaDTO.class)).orElseThrow(() -> new ResourceNotFoundException("Peça não encontrada com ID: " + id));
     }
 
     public PecaDTO save(PecaDTO pecaDTO) {
@@ -77,8 +77,10 @@ public class PecaService {
 
     public List<PecaDTO> findByNameContaining(String nome) {
         List<Peca> pecas = pecaRepository.findByNameContaining(nome);
-        return pecas.stream()
-                .map(peca -> modelMapper.map(peca, PecaDTO.class))
-                .collect(Collectors.toList());
+        return pecas.stream().map(peca -> modelMapper.map(peca, PecaDTO.class)).collect(Collectors.toList());
+    }
+
+    public List<PecaProjection> findProjectionsById(Integer id) {
+        return pecaRepository.findProjectionsById(id);
     }
 }

@@ -8,15 +8,10 @@ import lombok.Setter;
 @Setter
 public class PecaDTO {
 
-     Integer id;
-
-     String nome;
-
-     String descricao;
-
-     String serial_number;
-
-     String fabricante;
-
-     Carro carro;
+    Integer id;
+    String nome;
+    String descricao;
+    String serial_number;
+    String fabricante;
+    Carro carro;
 }

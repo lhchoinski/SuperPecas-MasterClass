@@ -2,19 +2,17 @@ package br.com.masterclass.superpecas.service;
 
 import br.com.masterclass.superpecas.Components.Pageable.CPageable;
 import br.com.masterclass.superpecas.DTO.CarroDTO;
-import br.com.masterclass.superpecas.DTO.PecaDTO;
-import br.com.masterclass.superpecas.Exceptions.CarroComPecasAssociadasException;
-import br.com.masterclass.superpecas.Exceptions.ResourceNotFoundException;
+import br.com.masterclass.superpecas.exceptions.CarroComPecasAssociadasException;
+import br.com.masterclass.superpecas.exceptions.ResourceNotFoundException;
 import br.com.masterclass.superpecas.model.Carro;
-import br.com.masterclass.superpecas.model.Peca;
+import br.com.masterclass.superpecas.projections.CarroProjection;
+import br.com.masterclass.superpecas.projections.PecaProjection;
 import br.com.masterclass.superpecas.repository.ICarroRepository;
 import br.com.masterclass.superpecas.repository.IPecaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,8 +39,7 @@ public class CarroService {
 
     public CarroDTO findById(Integer id) {
         Optional<Carro> carro = carroRepository.findById(id);
-        return carro.map(value -> modelMapper.map(value, CarroDTO.class))
-                .orElseThrow(() -> new ResourceNotFoundException("Carro não encontrado com ID: " + id));
+        return carro.map(value -> modelMapper.map(value, CarroDTO.class)).orElseThrow(() -> new ResourceNotFoundException("Carro não encontrado com ID: " + id));
     }
 
     public CarroDTO save(CarroDTO carroDTO) {
@@ -82,8 +79,10 @@ public class CarroService {
 
     public List<CarroDTO> findByNameContaining(String nome) {
         List<Carro> carros = carroRepository.findByNameContaining(nome);
-        return carros.stream()
-                .map(carro -> modelMapper.map(carro, CarroDTO.class))
-                .collect(Collectors.toList());
+        return carros.stream().map(carro -> modelMapper.map(carro, CarroDTO.class)).collect(Collectors.toList());
+    }
+
+    public List<CarroProjection> findProjectionsById(Integer id) {
+        return carroRepository.findProjectionsById(id);
     }
 }

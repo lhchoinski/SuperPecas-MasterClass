@@ -1,4 +1,4 @@
-package br.com.masterclass.superpecas.Exceptions;
+package br.com.masterclass.superpecas.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

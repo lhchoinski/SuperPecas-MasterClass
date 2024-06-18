@@ -2,6 +2,7 @@ package br.com.masterclass.superpecas.controller;
 
 import br.com.masterclass.superpecas.Components.Pageable.CPageable;
 import br.com.masterclass.superpecas.DTO.PecaDTO;
+import br.com.masterclass.superpecas.projections.PecaProjection;
 import br.com.masterclass.superpecas.service.PecaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -50,6 +51,12 @@ public class PecaController {
     @GetMapping("/nome")
     public ResponseEntity<List<PecaDTO>> findByNameContaining(@RequestParam String nome) {
         List<PecaDTO> pecas = pecaService.findByNameContaining(nome);
+        return new ResponseEntity<>(pecas, HttpStatus.OK);
+    }
+
+    @GetMapping("/projections/pecas/{id}")
+    public ResponseEntity<List<PecaProjection>> findProjectionsById(@PathVariable Integer id) {
+        List<PecaProjection> pecas = pecaService.findProjectionsById(id);
         return new ResponseEntity<>(pecas, HttpStatus.OK);
     }
 

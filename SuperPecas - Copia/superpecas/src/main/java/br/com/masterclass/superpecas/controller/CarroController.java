@@ -2,7 +2,8 @@ package br.com.masterclass.superpecas.controller;
 
 import br.com.masterclass.superpecas.Components.Pageable.CPageable;
 import br.com.masterclass.superpecas.DTO.CarroDTO;
-import br.com.masterclass.superpecas.DTO.PecaDTO;
+import br.com.masterclass.superpecas.projections.CarroProjection;
+import br.com.masterclass.superpecas.projections.PecaProjection;
 import br.com.masterclass.superpecas.service.CarroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -51,6 +52,12 @@ public class CarroController {
     @GetMapping("/nome")
     public ResponseEntity<List<CarroDTO>> findByNameContaining(@RequestParam String nome) {
         List<CarroDTO> carros = carroService.findByNameContaining(nome);
+        return new ResponseEntity<>(carros, HttpStatus.OK);
+    }
+
+    @GetMapping("/projections/carro/{id}")
+    public ResponseEntity<List<CarroProjection>> findProjectionsById(@PathVariable Integer id) {
+        List<CarroProjection> carros = carroService.findProjectionsById(id);
         return new ResponseEntity<>(carros, HttpStatus.OK);
     }
 }

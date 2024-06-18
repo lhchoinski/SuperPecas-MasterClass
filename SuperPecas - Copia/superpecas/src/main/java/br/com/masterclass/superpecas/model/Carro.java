@@ -6,9 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,12 +18,9 @@ public class Carro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
     private String serial;
 
-
     private String nome;
-
 
     private String fabricante;
 
