@@ -9,9 +9,4 @@ import java.util.List;
 
 public interface ICarroRepository extends JpaRepository<Carro, Integer> {
 
-    @Query("SELECT c FROM Carro c WHERE c.fabricante = :fabricante")
-    List<Carro> findByFabricante(@Param("fabricante") String fabricante);
-
-    @Query("SELECT COUNT(c) FROM Carro c")
-    Long countCarros();
 }

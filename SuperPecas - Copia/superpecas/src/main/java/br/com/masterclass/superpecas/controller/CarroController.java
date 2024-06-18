@@ -25,11 +25,7 @@ public class CarroController {
     @GetMapping("/{id}")
     public ResponseEntity<CarroDTO> getCarroById(@PathVariable Integer id) {
         CarroDTO carroDTO = carroService.findById(id);
-        if (carroDTO != null) {
-            return ResponseEntity.ok(carroDTO);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(carroDTO);
     }
 
     @PostMapping("/salvar")
@@ -41,19 +37,12 @@ public class CarroController {
     @PutMapping("/{id}")
     public ResponseEntity<CarroDTO> updateCarro(@PathVariable Integer id, @RequestBody CarroDTO carroDTO) {
         CarroDTO updatedCarro = carroService.update(id, carroDTO);
-        if (updatedCarro != null) {
-            return ResponseEntity.ok(updatedCarro);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(updatedCarro);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCarro(@PathVariable Integer id) {
-        if (carroService.delete(id)) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        carroService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }
