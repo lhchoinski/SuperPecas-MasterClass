@@ -22,6 +22,8 @@ public class CarroService {
 
     @Autowired
     private ICarroRepository carroRepository;
+
+    @Autowired
     private IPecaRepository pecaRepository;
 
     @Autowired

@@ -2,10 +2,13 @@ package br.com.masterclass.superpecas.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@Entity
 @Table(name = "pecas")
 public class Peca {
 
@@ -17,7 +20,7 @@ public class Peca {
 
     private String descricao;
 
-    private String serialNumber;
+    private String serial_number;
 
     private String fabricante;
 
