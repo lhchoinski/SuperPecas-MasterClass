@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!-- Criação da tabela usuarios -->
+    <changeSet id="1" author="seu_nome">
+        <createTable tableName="usuarios">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="login" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="role" type="VARCHAR(50)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <addDefaultValue tableName="usuarios" columnName="id" defaultValueComputed="gen_random_uuid()"/>
+    </changeSet>
+
+    <!-- Criação da tabela carros -->
+    <changeSet id="2" author="seu_nome">
+        <createTable tableName="carros">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="serial" type="VARCHAR(255)"/>
+            <column name="nome" type="VARCHAR(255)"/>
+            <column name="fabricante" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Criação da tabela pecas -->
+    <changeSet id="3" author="seu_nome">
+        <createTable tableName="pecas">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="nome" type="VARCHAR(255)"/>
+            <column name="descricao" type="TEXT"/>
+            <column name="serial_number" type="VARCHAR(255)"/>
+            <column name="fabricante" type="VARCHAR(255)"/>
+            <column name="id_carro" type="INT">
+                <constraints nullable="false" foreignKeyName="fk_pecas_carros" references="carros(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
